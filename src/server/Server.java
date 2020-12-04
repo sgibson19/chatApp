@@ -26,7 +26,9 @@ public class Server {
     }
 
     private static void broadcast(String message){
-
+        for (ClientInfo info : clients) {
+            send(message, info.getAddress(), info.getPort());
+        }
     }
 
     private static void send(String message, InetAddress address, int port){
@@ -90,6 +92,6 @@ public class Server {
     }
 
     public static void stop(){
-
+        running = false;
     }
 }
