@@ -3,6 +3,7 @@ package client;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -43,7 +44,9 @@ public class ClientWindow {
 	 */
 	public ClientWindow() {
 		initialize();
-		client = new Client("localhost", 9000);
+		
+		String name = JOptionPane.showInputDialog("Enter Name");
+		client = new Client(name, "localhost", 9000);
 	}
 
 	/**
@@ -67,6 +70,10 @@ public class ClientWindow {
 		
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(e -> {
+			if (!messageField.getText().equals("")) {
+				client.send(messageField.getText());
+				messageField.setText("");
+			}
 			
 		});
 		
@@ -83,5 +90,6 @@ public class ClientWindow {
 	public static void printToConsole(String message) {
 		textArea.setText(textArea.getText()+message+"\n");
 	}
+	
 
 }
